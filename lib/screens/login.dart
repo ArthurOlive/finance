@@ -1,8 +1,7 @@
-import 'package:finance_app/components/cards.dart';
-import 'package:finance_app/components/historyList.dart';
+import 'package:finance_app/app.dart';
 import 'package:finance_app/components/menu.dart';
-import 'package:finance_app/components/preview.dart';
 import 'package:finance_app/style/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -16,43 +15,99 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        elevation: 0,
-        toolbarHeight: 110,
-        title: const Menu()
-      ),
-      body: ListView(
-        // ignore: prefer_const_literals_to_create_immutables
-        children: [
-          const Preview(),
-          const Cards(),
-          const HistoryList()
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        // ignore: prefer_const_literals_to_create_immutables
-        items: [
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.attach_money_rounded), label: ""),
-          const BottomNavigationBarItem(icon: Icon(Icons.history), label: ""),
-          const BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: ""),
-        ],
-        currentIndex: 0,
-        onTap: (int index) {
-          switch (index) {
-            case 0:
-              Navigator.of(context).pushReplacementNamed("/");
-              break;
-            case 1:
-              Navigator.of(context).pushReplacementNamed("/history");
-              break;
-            case 2:
-              Navigator.of(context).pushReplacementNamed("/payment_cart");
-              break;
-          }
-        },
-      ),
+      body: Container(
+          height: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 95, horizontal: 20),
+          color: Colors.blueAccent,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  Row(children: const [
+                    Text(
+                      "Finance",
+                      style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ]),
+                  const Text(
+                    "Começe a poupar com pouco e projete seus planos de economia",
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white70),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.black45,
+                            spreadRadius: 2,
+                            blurRadius: 6)
+                      ]
+                  ),
+                  padding: const EdgeInsets.all(20),
+                  child: Form(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                        TextFormField(
+                          decoration: InputDecoration(
+                            hintText: 'Email',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            hintText: 'Password',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                            height: 45,
+                            child: ElevatedButton(
+                              onPressed: () => {
+                                 Navigator.of(context).pushReplacementNamed("/home")
+                              },
+                              child: const Text("Entrar"),
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: Size.infinite),
+                            ))
+                      ])))
+            ],
+          )),
     );
   }
 }
